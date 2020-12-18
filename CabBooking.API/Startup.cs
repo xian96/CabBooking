@@ -45,6 +45,8 @@ namespace CabBooking.API
             //denpendency injection specify at here
             services.AddScoped<ICabTypeService, CabTypeService>();
             services.AddScoped<IAsyncRepository<CabType>, EfRepository<CabType>>();
+            services.AddScoped<IPlaceService, PlaceService>();
+            services.AddScoped<IAsyncRepository<Place>, EfRepository<Place>>();
 
         }
 

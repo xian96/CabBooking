@@ -15,9 +15,12 @@ namespace CabBooking.API.Controllers
     public class AdminController : ControllerBase
     {
         private readonly ICabTypeService _cabTypeService;
-        public AdminController(ICabTypeService cabTypeService)
+        private readonly IPlaceService _placeService;
+
+        public AdminController(ICabTypeService cabTypeService, IPlaceService placeService)
         {
             _cabTypeService = cabTypeService;
+            _placeService = placeService;
         }
 
         [HttpPost]
@@ -61,6 +64,46 @@ namespace CabBooking.API.Controllers
 
         }
 
+        [HttpPost]
+        [Route("Place")]
+        public async Task<IActionResult> CreatePlace(Place place)
+        {
+            if (ModelState.IsValid)
+            {
+                var placeResponse = await _placeService.CreatePlace(place);
+                //TODO: should catch exception here
+                return Ok(placeResponse);
+            }
+
+            return BadRequest(new { message = "please correct the input information" });
+        }
+
+        [HttpPut]
+        [Route("Place")]
+        public async Task<IActionResult> UpdatePlace(Place place)
+        {
+            if (ModelState.IsValid)
+            {
+                var placeResponse = await _placeService.UpdatePlace(place);
+                //TODO: should catch exception here
+                return Ok(placeResponse);
+            }
+
+            return BadRequest(new { message = "please correct the input information" });
+        }
+
+        [HttpDelete]
+        [Route("Place/{PlaceId:int}")]
+        public async Task<IActionResult> UpdatePlace(int PlaceId)
+        {
+            var response = await _placeService.DeletePlace(PlaceId);
+            if (response)
+            {
+                return Ok();
+            }
+            return BadRequest(new { message = "please correct the input information" });
+
+        }
 
     }
 }
