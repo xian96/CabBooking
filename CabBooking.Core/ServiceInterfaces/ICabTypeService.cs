@@ -11,5 +11,7 @@ namespace CabBooking.Core.ServiceInterfaces
     {
         Task<IEnumerable<CabType>> GetAllCabType();
         Task<CabType> CreateCabType(CabTypeCreateRequest cabTypeCreateRequest);
+        Task<CabType> UpdateCabType(CabType cabType);
+        Task<bool> DeleteCabType(int cabTypeId);
     }
 }

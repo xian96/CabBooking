@@ -1,4 +1,5 @@
-﻿using CabBooking.Core.Models.Reqpest;
+﻿using CabBooking.Core.Entities;
+using CabBooking.Core.Models.Reqpest;
 using CabBooking.Core.ServiceInterfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -32,5 +33,34 @@ namespace CabBooking.API.Controllers
 
             return BadRequest(new { message = "please correct the input information" });
         }
+
+        [HttpPut]
+        [Route("CabType")]
+        public async Task<IActionResult> UpdateCabType(CabType cabType)
+        {
+            if (ModelState.IsValid)
+            {
+                var capTypeResponse = await _cabTypeService.UpdateCabType(cabType);
+                //TODO: should catch exception here
+                return Ok(capTypeResponse);
+            }
+
+            return BadRequest(new { message = "please correct the input information" });
+        }
+
+        [HttpDelete]
+        [Route("CabType/{cabTypeId:int}")]
+        public async Task<IActionResult> UpdateCabType(int cabTypeId)
+        {
+            var response = await _cabTypeService.DeleteCabType(cabTypeId);
+            if(response)
+            {
+                return Ok();
+            }
+            return BadRequest(new { message = "please correct the input information" });
+
+        }
+
+
     }
 }
