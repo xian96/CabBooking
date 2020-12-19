@@ -37,6 +37,18 @@ namespace CabBooking.Infrastructure.Data
             builder.Property(b => b.PickupTime).HasMaxLength(5);
             builder.Property(b => b.ContactNo).HasMaxLength(25);
             builder.Property(b => b.Status).HasMaxLength(30);
+
+            builder.HasOne(b => b.FromPlace)
+                .WithMany(p => p.FromBookings)
+                .HasForeignKey(b => b.FromPlaceId);
+
+            builder.HasOne(b => b.ToPlace)
+                .WithMany(p => p.ToBookings)
+                .HasForeignKey(b => b.ToPlaceId);
+
+            builder.HasOne(b => b.CabType)
+                .WithMany(p => p.Bookings)
+                .HasForeignKey(b => b.CabTypeId);
         }
         
         private void ConfigureBookingHistory(EntityTypeBuilder<BookingHistory> builder)
@@ -53,6 +65,18 @@ namespace CabBooking.Infrastructure.Data
             builder.Property(bh => bh.Status).HasMaxLength(30);
             builder.Property(bh => bh.CompTime).HasMaxLength(5);
             builder.Property(bh => bh.FeedBack).HasMaxLength(1000);
+
+            builder.HasOne(b => b.FromPlace)
+                .WithMany(p => p.FromBookingHistories)
+                .HasForeignKey(b => b.FromPlaceId);
+
+            builder.HasOne(b => b.ToPlace)
+                .WithMany(p => p.ToBookingHistories)
+                .HasForeignKey(b => b.ToPlaceId);
+
+            builder.HasOne(b => b.CabType)
+                .WithMany(p => p.BookingHistories)
+                .HasForeignKey(b => b.CabTypeId);
         }
 
         private void ConfigureCabType(EntityTypeBuilder<CabType> builder)
@@ -69,6 +93,7 @@ namespace CabBooking.Infrastructure.Data
             builder.ToTable("Place");
             builder.HasKey(p => p.PlaceId);
             builder.Property(p => p.PlaceName).HasMaxLength(30);
+
         }
     }
 }

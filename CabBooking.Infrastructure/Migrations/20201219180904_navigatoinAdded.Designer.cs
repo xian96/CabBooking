@@ -4,14 +4,16 @@ using CabBooking.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CabBooking.Infrastructure.Migrations
 {
     [DbContext(typeof(CabBookingDbContext))]
-    partial class CabBookingDbontextModelSnapshot : ModelSnapshot
+    [Migration("20201219180904_navigatoinAdded")]
+    partial class navigatoinAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -191,11 +193,11 @@ namespace CabBooking.Infrastructure.Migrations
                         .HasForeignKey("CabTypeId");
 
                     b.HasOne("CabBooking.Core.Entities.Place", "FromPlace")
-                        .WithMany("FromBookings")
+                        .WithMany("Bookings")
                         .HasForeignKey("FromPlaceId");
 
                     b.HasOne("CabBooking.Core.Entities.Place", "ToPlace")
-                        .WithMany("ToBookings")
+                        .WithMany()
                         .HasForeignKey("ToPlaceId");
 
                     b.Navigation("CabType");
@@ -212,11 +214,11 @@ namespace CabBooking.Infrastructure.Migrations
                         .HasForeignKey("CabTypeId");
 
                     b.HasOne("CabBooking.Core.Entities.Place", "FromPlace")
-                        .WithMany("FromBookingHistories")
+                        .WithMany("BookingHistories")
                         .HasForeignKey("FromPlaceId");
 
                     b.HasOne("CabBooking.Core.Entities.Place", "ToPlace")
-                        .WithMany("ToBookingHistories")
+                        .WithMany()
                         .HasForeignKey("ToPlaceId");
 
                     b.Navigation("CabType");
@@ -235,13 +237,9 @@ namespace CabBooking.Infrastructure.Migrations
 
             modelBuilder.Entity("CabBooking.Core.Entities.Place", b =>
                 {
-                    b.Navigation("FromBookingHistories");
+                    b.Navigation("BookingHistories");
 
-                    b.Navigation("FromBookings");
-
-                    b.Navigation("ToBookingHistories");
-
-                    b.Navigation("ToBookings");
+                    b.Navigation("Bookings");
                 });
 #pragma warning restore 612, 618
         }

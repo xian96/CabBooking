@@ -23,6 +23,11 @@ namespace CabBooking.Infrastructure.Services
             return await _cabTypeRepository.ListAllAsync();
         }
 
+        public async Task<CabType> GetCabTypesById(int cabTypeId)
+        {
+            return await _cabTypeRepository.GetByIdAsync(cabTypeId);
+        }
+
         public async Task<CabType> CreateCabType(CabTypeCreateRequest cabTypeCreateRequest)
         {
             var exists = await _cabTypeRepository.GetExistsAsync(c => c.CabTypeName.Equals(cabTypeCreateRequest.CabTypeName));

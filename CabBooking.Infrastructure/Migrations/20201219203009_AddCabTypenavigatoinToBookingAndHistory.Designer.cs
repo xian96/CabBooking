@@ -4,14 +4,16 @@ using CabBooking.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CabBooking.Infrastructure.Migrations
 {
     [DbContext(typeof(CabBookingDbContext))]
-    partial class CabBookingDbontextModelSnapshot : ModelSnapshot
+    [Migration("20201219203009_AddCabTypenavigatoinToBookingAndHistory")]
+    partial class AddCabTypenavigatoinToBookingAndHistory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,6 +36,9 @@ namespace CabBooking.Infrastructure.Migrations
                         .HasColumnType("nvarchar(5)");
 
                     b.Property<int?>("CabTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CabTypeId1")
                         .HasColumnType("int");
 
                     b.Property<string>("ContactNo")
@@ -73,6 +78,8 @@ namespace CabBooking.Infrastructure.Migrations
 
                     b.HasIndex("CabTypeId");
 
+                    b.HasIndex("CabTypeId1");
+
                     b.HasIndex("FromPlaceId");
 
                     b.HasIndex("ToPlaceId");
@@ -95,6 +102,9 @@ namespace CabBooking.Infrastructure.Migrations
                         .HasColumnType("nvarchar(5)");
 
                     b.Property<int?>("CabTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CabTypeId1")
                         .HasColumnType("int");
 
                     b.Property<decimal?>("Charge")
@@ -145,6 +155,8 @@ namespace CabBooking.Infrastructure.Migrations
 
                     b.HasIndex("CabTypeId");
 
+                    b.HasIndex("CabTypeId1");
+
                     b.HasIndex("FromPlaceId");
 
                     b.HasIndex("ToPlaceId");
@@ -187,8 +199,12 @@ namespace CabBooking.Infrastructure.Migrations
             modelBuilder.Entity("CabBooking.Core.Entities.Booking", b =>
                 {
                     b.HasOne("CabBooking.Core.Entities.CabType", "CabType")
-                        .WithMany("Bookings")
+                        .WithMany("FromBookings")
                         .HasForeignKey("CabTypeId");
+
+                    b.HasOne("CabBooking.Core.Entities.CabType", null)
+                        .WithMany("ToBookings")
+                        .HasForeignKey("CabTypeId1");
 
                     b.HasOne("CabBooking.Core.Entities.Place", "FromPlace")
                         .WithMany("FromBookings")
@@ -208,8 +224,12 @@ namespace CabBooking.Infrastructure.Migrations
             modelBuilder.Entity("CabBooking.Core.Entities.BookingHistory", b =>
                 {
                     b.HasOne("CabBooking.Core.Entities.CabType", "CabType")
-                        .WithMany("BookingHistories")
+                        .WithMany("FromBookingHistories")
                         .HasForeignKey("CabTypeId");
+
+                    b.HasOne("CabBooking.Core.Entities.CabType", null)
+                        .WithMany("ToBookingHistories")
+                        .HasForeignKey("CabTypeId1");
 
                     b.HasOne("CabBooking.Core.Entities.Place", "FromPlace")
                         .WithMany("FromBookingHistories")
@@ -228,9 +248,13 @@ namespace CabBooking.Infrastructure.Migrations
 
             modelBuilder.Entity("CabBooking.Core.Entities.CabType", b =>
                 {
-                    b.Navigation("BookingHistories");
+                    b.Navigation("FromBookingHistories");
 
-                    b.Navigation("Bookings");
+                    b.Navigation("FromBookings");
+
+                    b.Navigation("ToBookingHistories");
+
+                    b.Navigation("ToBookings");
                 });
 
             modelBuilder.Entity("CabBooking.Core.Entities.Place", b =>

@@ -4,14 +4,16 @@ using CabBooking.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CabBooking.Infrastructure.Migrations
 {
     [DbContext(typeof(CabBookingDbContext))]
-    partial class CabBookingDbontextModelSnapshot : ModelSnapshot
+    [Migration("20201219203343_AddCabTypenavigatoinToBookingAndHistoryFix")]
+    partial class AddCabTypenavigatoinToBookingAndHistoryFix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
