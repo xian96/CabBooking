@@ -14,6 +14,7 @@ namespace CabBooking.Infrastructure.Repositories
         {
         }
 
+        // additional method for cabtype repo
 
     }
 }

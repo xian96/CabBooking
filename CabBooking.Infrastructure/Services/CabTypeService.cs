@@ -11,9 +11,9 @@ namespace CabBooking.Infrastructure.Services
 {
     public class CabTypeService : ICabTypeService
     {
-        private readonly IAsyncRepository<CabType> _cabTypeRepository;
+        private readonly ICabTypeRepository _cabTypeRepository;
 
-        public CabTypeService(IAsyncRepository<CabType> cabTypeRepository)
+        public CabTypeService(ICabTypeRepository cabTypeRepository)
         {
             _cabTypeRepository = cabTypeRepository;
         }

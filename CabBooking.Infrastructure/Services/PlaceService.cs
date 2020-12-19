@@ -10,13 +10,13 @@ namespace CabBooking.Infrastructure.Services
 {
     public class PlaceService : IPlaceService
     {
-        private readonly IAsyncRepository<Place> _placeRepository;
+        private readonly IPlaceRepository _placeRepository;
 
-        public PlaceService(IAsyncRepository<Place> placeRepository)
+        public PlaceService(IPlaceRepository placeRepository)
         {
             _placeRepository = placeRepository;
         }
-
+            
         public async Task<Place> CreatePlace(Place place)
         {
             var exists = await _placeRepository.GetExistsAsync(p => p.PlaceName.Equals(place.PlaceName));
@@ -26,7 +26,7 @@ namespace CabBooking.Infrastructure.Services
                 throw new Exception("Place Already Exits");
             }
 
-            var createdMovie = await _placeRepository.AddAsync(place);
+            var createdBooking = await _placeRepository.AddAsync(place);
 
             // response model not used here, cause only two prop
             return place;

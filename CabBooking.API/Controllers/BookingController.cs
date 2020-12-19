@@ -18,7 +18,16 @@ namespace JasonXing.CabBooking.API.Controllers
             _bookingService = bookingService;
         }
 
-
+        [HttpGet]
+        public async Task<IActionResult> GetAllCabTypes()
+        {
+            var bookings = await _bookingService.GetAllBooking();
+            if (bookings == null)
+            {
+                return NotFound("no CabTypes Found");
+            }
+            return Ok(bookings);
+        }
 
     }
 }
