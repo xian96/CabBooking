@@ -12,5 +12,6 @@ namespace CabBooking.Core.ServiceInterfaces
         Task<Place> CreatePlace(Place place);
         Task<Place> UpdatePlace(Place place);
         Task<bool> DeletePlace(int placeId);
+        Task<Place> GetPlaceById(int placeId);
     }
 }

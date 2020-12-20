@@ -65,5 +65,10 @@ namespace CabBooking.Infrastructure.Services
             // response model not used here, cause only two prop
             return updatedBooking;
         }
+
+        public async Task<Booking> GetBookingById(int bookingId)
+        {
+            return await _bookingRepository.GetByIdAsync(bookingId);
+        }
     }
 }

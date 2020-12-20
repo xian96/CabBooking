@@ -24,9 +24,21 @@ namespace JasonXing.CabBooking.API.Controllers
             var bookings = await _bookingService.GetAllBooking();
             if (bookings == null)
             {
-                return NotFound("no CabTypes Found");
+                return NotFound("no bookings Found");
             }
             return Ok(bookings);
+        }
+
+        [HttpGet]
+        [Route("{bookingId:int}")]
+        public async Task<IActionResult> GetBookingById(int bookingId)
+        {
+            var booking = await _bookingService.GetBookingById(bookingId);
+            if (booking == null)
+            {
+                return NotFound("no booking Found");
+            }
+            return Ok(booking);
         }
 
     }

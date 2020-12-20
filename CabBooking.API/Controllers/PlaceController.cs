@@ -30,5 +30,16 @@ namespace CabBooking.API.Controllers
             return Ok(places);
         }
 
+        [HttpGet]
+        [Route("{placeId:int}")]
+        public async Task<IActionResult> GetPlaceById(int placeId)
+        {
+            var place = await _placeService.GetPlaceById(placeId);
+            if (place == null)
+            {
+                return NotFound("no place Found");
+            }
+            return Ok(place);
+        }
     }
 }

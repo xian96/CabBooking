@@ -12,5 +12,6 @@ namespace CabBooking.Core.ServiceInterfaces
         Task<BookingHistory> CreateBookingHistory(BookingHistory bookingHistory);
         Task<BookingHistory> UpdateBookingHistory(BookingHistory bookingHistory);
         Task<bool> DeleteBookingHistory(int BookingHistoryId);
+        Task<BookingHistory> GetBookingHistoryById(int bookingHistoryId);
     }
 }
