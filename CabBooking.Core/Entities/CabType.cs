@@ -9,7 +9,6 @@ namespace CabBooking.Core.Entities
 
         //navigation
         public ICollection<Booking> Bookings { get; set; }
-
         public ICollection<BookingHistory> BookingHistories { get; set; }
 
     }

@@ -1,5 +1,6 @@
 ﻿using CabBooking.Core.Entities;
 using CabBooking.Core.Models.Reqpest;
+using CabBooking.Core.Models.Response;
 using CabBooking.Core.RepositoryInterfaces;
 using CabBooking.Core.ServiceInterfaces;
 using System;
@@ -23,9 +24,47 @@ namespace CabBooking.Infrastructure.Services
             return await _cabTypeRepository.ListAllAsync();
         }
 
-        public async Task<CabType> GetCabTypesById(int cabTypeId)
+        public async Task<CabTypeDetailResponse> GetCabTypesById(int cabTypeId)
         {
-            return await _cabTypeRepository.GetByIdAsync(cabTypeId);
+            var cabType = await _cabTypeRepository.GetByIdAsync(cabTypeId);
+            var bookings = new List<BookingDetailResponse>();
+            foreach (var booking in cabType.Bookings)
+            {
+                var fromPlace = new PlaceResponse
+                {
+                    PlaceId = booking.FromPlace.PlaceId,
+                    PlaceName = booking.FromPlace.PlaceName
+                };
+                var toPlace = new PlaceResponse
+                {
+                    PlaceId = booking.ToPlace.PlaceId,
+                    PlaceName = booking.ToPlace.PlaceName
+                };
+                bookings.Add(
+                    new BookingDetailResponse
+                    {
+                        Id = booking.Id,
+                        Email = booking.Email,
+                        BookingDate = booking.BookingDate,
+                        BookingTime = booking.BookingTime,
+                        PickupAddress = booking.PickupAddress,
+                        Landmark = booking.Landmark,
+                        PickupDate = booking.BookingDate,
+                        PickupTime = booking.BookingTime,
+                        ContactNo = booking.ContactNo,
+                        Status = booking.Status,
+                        FromPlace = fromPlace,
+                        ToPlace = toPlace
+                    }
+                );
+            }
+            var cabTypeDetailResponse = new CabTypeDetailResponse
+            {
+                CabTypeId = cabType.CabTypeId,
+                CabTypeName = cabType.CabTypeName,
+                BookingDetailResponses = bookings,
+            };
+            return cabTypeDetailResponse;
         }
 
         public async Task<CabType> CreateCabType(CabTypeCreateRequest cabTypeCreateRequest)

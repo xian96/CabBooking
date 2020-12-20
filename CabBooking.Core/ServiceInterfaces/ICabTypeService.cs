@@ -1,5 +1,6 @@
 ﻿using CabBooking.Core.Entities;
 using CabBooking.Core.Models.Reqpest;
+using CabBooking.Core.Models.Response;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,6 +14,6 @@ namespace CabBooking.Core.ServiceInterfaces
         Task<CabType> CreateCabType(CabTypeCreateRequest cabTypeCreateRequest);
         Task<CabType> UpdateCabType(CabType cabType);
         Task<bool> DeleteCabType(int cabTypeId);
-        Task<CabType> GetCabTypesById(int cabTypeId);
+        Task<CabTypeDetailResponse> GetCabTypesById(int cabTypeId);
     }
 }
