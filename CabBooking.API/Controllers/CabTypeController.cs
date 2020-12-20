@@ -34,12 +34,12 @@ namespace CabBooking.API.Controllers
         [Route("{cabTypeId:int}")]
         public async Task<IActionResult> GetCabTypesById(int cabTypeId)
         {
-            var cabTypes = await _cabTypeService.GetCabTypesById(cabTypeId);
-            if (cabTypes == null)
+            var cabType = await _cabTypeService.GetCabTypesById(cabTypeId);
+            if (cabType == null)
             {
                 return NotFound("no CabTypes Found");
             }
-            return Ok(cabTypes);
+            return Ok(cabType);
         }
 
 
