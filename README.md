@@ -9,5 +9,4 @@ Cab Booking application using .Net Core 5
 - API
 - Core
 - Infrastructure
-
-- MS SQL
+- MS SQL(database script see DatabaseDummy folder)
